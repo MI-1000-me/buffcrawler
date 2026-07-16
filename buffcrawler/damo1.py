@@ -5,6 +5,7 @@ from DrissionPage.common import Settings
 from DrissionPage.common import By
 
 from get_cookie import getCookie
+#明天把控制函数写完这里要改
 
 url= "https://buff.163.com/market/csgo#game=csgo" 
 Settings.set_language('zh_cn')
@@ -15,27 +16,20 @@ def open_web():
     bro.get(url)
     return bro
 
-
-def ensure_login():
-    
-    open_web()
-    bro.ele('@id=search_btn_csgo').click()
-    if bro.ele('@text()=扫描上方二维码登录'):
-        user_cookie= getCookie(url)
-        bro.set.cookies(user_cookie)
-        bro.get(url)
-        
         
 def seek(name):
-    
-    ele= bro.ele('@placeholder=输入物品名称')
+    #这里ele有问题，改。还有最下面的id重了要找新的
+    input1= ["输入物品名称","Enter the item name"]
+    ele= bro.ele(f'@placeholder={input1}')
     ele.input(name)
     bro.ele('@id=search_btn_csgo').click()
-
+        
+"""
+校验cookies在现在的getcookie写完了，到时候改完重新写openweb流程
+"""
 
     
 if __name__ == "__main__":
-    ensure_login()
     seek("ak")
 # `url_available`
 # 此属性以布尔值返回当前链接是否可用
