@@ -23,7 +23,7 @@ class CookieManager():
             json.dump(self.cookie, cooi)
     #校验cookie
     def test_cookie(self):
-        self.bro.ele('@id=search_btn_csgo').click()
+        self.bro.ele('@text()=登录/注册').click()
         if self.cookie:
             self.bro.set.cookies(self.cookie)
         self.bro.get(self.url)
