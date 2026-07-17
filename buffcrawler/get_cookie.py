@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 from DrissionPage import Chromium
 
@@ -23,42 +24,39 @@ class CookieManager():
     #校验cookie
     def test_cookie(self):
         self.bro.ele('@id=search_btn_csgo').click()
+        if self.cookie:
+            self.bro.set.cookies(self.cookie)
+        self.bro.get(self.url)
         if self.bro.ele('@text()=扫描上方二维码登录'):
-            if self.cookie:
-                self.bro.set.cookies(self.cookie)
-            self.bro.get(self.url)
+            return False
+        return True
     #打开cookie
     def open_cookie(self):
         with open("cookie.json","r",encoding="utf8")as cooi:
-            cookie = json.load(cooi)
+            self.cookie = json.load(cooi)
         return self.cookie
 
+def has_cookie():
+    """检查当前目录是否存在 cookie.json"""
+    cookie_file = Path("cookie.json")
+    return cookie_file.exists()
 
 def ensure_cookie():
     #控制函数
-    pass
+    
+    cookie= CookieManager()
+    
+    if not  has_cookie() :
+        cookie.get_cookie()
+        cookie.store_cookie()
+    else:
+        cookie.open_cookie()
+        
+        if not cookie.test_cookie():
+            cookie.get_cookie()
+            cookie.store_cookie()
+    return cookie
+        
 
-""" 
-创建 CookieManager
-        │
-        ▼
-    读取 Cookie
-        │
-        ▼
-    验证 Cookie
-        │
-   ┌────┴────┐
-   │         │
-有效       无效
-   │         │
-直接返回   扫码登录
-             │
-             ▼
-         获取 Cookie
-             │
-             ▼
-          保存 Cookie
-             │
-             ▼
-           返回 Cookie
-"""
+if __name__ == "__main__":
+    ensure_cookie()
