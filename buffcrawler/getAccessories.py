@@ -4,7 +4,9 @@ from DrissionPage.common import Settings
 
 
 from cookie_manager import ensure_cookie
-
+"""
+本文件是为了获取所有饰品的value和名字，日后damo2要把饰品的url拆分回来，这里那里接着写具体饰品id获取
+"""
 co = ChromiumOptions()
 co.headless(True)  # 无头模式
 co.no_imgs(True)   # 禁用图片
