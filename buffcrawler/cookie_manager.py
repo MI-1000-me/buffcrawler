@@ -22,6 +22,7 @@ class CookieManager():
     def store_cookie(self):
         with open("cookie.json","w",encoding="utf8")as cooi:
             json.dump(self.cookie, cooi)
+            
     #校验cookie
     def test_cookie(self):
         if self.cookie:
@@ -30,6 +31,7 @@ class CookieManager():
         if self.bro.ele('@text()=我的库存') is None:
             return False
         return True
+    
     #打开cookie
     def open_cookie(self):
         with open("cookie.json","r",encoding="utf8")as cooi:
