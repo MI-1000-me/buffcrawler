@@ -8,7 +8,7 @@ from cookie_manager import ensure_cookie
 本文件是为了获取所有饰品的value和名字，日后damo2要把饰品的url拆分回来，这里那里接着写具体饰品id获取
 """
 co = ChromiumOptions()
-co.headless(True)  # 无头模式
+#co.headless(True)  # 无头模式
 co.no_imgs(True)   # 禁用图片
   
 url= "https://buff.163.com/market/csgo#game=csgo" 
@@ -32,8 +32,16 @@ def search():
     for li in lis:
         value = li.attr('value')
         value_list.append(value)
-    return name,value
-    
+    return name,value_list
+
+
+def accessoriesurls():
+    accessoriesurls= []
+    _,accessories_v= search()  #大脑枯竭了，这个变量接受的是饰品类的id吧，就是下面用的那个
+    for i in accessories_v:
+        accessoriesurl= f"https://buff.163.com/market/csgo#game=csgo&page_num=1&category={i}&tab=selling"
+        accessoriesurls.append(accessoriesurl)
+    return accessoriesurls    
 
 if __name__ == "__main__":
     open_web()

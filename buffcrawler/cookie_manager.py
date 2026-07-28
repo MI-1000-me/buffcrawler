@@ -29,7 +29,9 @@ class CookieManager():
             self.bro.set.cookies(self.cookie)
         self.bro.get(self.url)  
         if self.bro.ele('@text()=我的库存') is None:
+            print("暂未登录")
             return False
+        print("已登录")
         return True
     
     #打开cookie
@@ -54,7 +56,7 @@ def ensure_cookie():
     else:
         cookie.open_cookie()
         
-        if not cookie.test_cookie():
+        if cookie.test_cookie() == False:
             cookie.get_cookie()
             cookie.store_cookie()
     return cookie
