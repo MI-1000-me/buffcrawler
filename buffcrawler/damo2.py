@@ -21,3 +21,12 @@ details_ids = bro.eles('[data-goods_id]')
 for idetails_id in details_ids:
     details_id= idetails_id.attr("data-goods_id") 
 details_title= details_ids.ele("@tag:h3")
+"""
+details = bro.eles('[data-goods_id]')
+
+for detail in details:
+    goods_id = detail.attr("data-goods_id")
+    title = detail.ele("@tag:h3").text
+    
+    print(goods_id, title)
+"""
