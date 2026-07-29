@@ -1,6 +1,7 @@
 from DrissionPage import Chromium
 from DrissionPage import ChromiumOptions
 from DrissionPage.common import Settings
+from pathlib import Path
 
 
 from cookie_manager import ensure_cookie
@@ -10,6 +11,9 @@ from cookie_manager import ensure_cookie
 co = ChromiumOptions()
 co.headless(True)  # 无头模式
 co.no_imgs(True)   # 禁用图片
+co.incognito()     # 无痕模式
+
+
 
 manager = ensure_cookie()  
 url= "https://buff.163.com/market/csgo#game=csgo" 
@@ -24,7 +28,7 @@ def open_web():
     return bro
 
         
-def search():
+def search(bro):
     names= bro.eles(".cols")
     name= [name.text.split() for name in names]
     value_list = []
@@ -43,9 +47,12 @@ def accessoriesurls():
     for i in accessories_v:
         accessoriesurl= f"https://buff.163.com/market/csgo#game=csgo&page_num=1&category={i}&tab=selling"
         accessoriesurls.append(accessoriesurl)
-    return accessoriesurls    
+    return accessoriesurls
+def close():
+    bro.quit()    
 
 if __name__ == "__main__":
     open_web()
-    search()
-    accessoriesurls()
+    search(bro)
+    i= accessoriesurls()
+    print(i)

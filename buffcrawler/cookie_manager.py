@@ -53,6 +53,10 @@ class CookieManager():
             self.cookie = json.load(cooi)
         return self.cookie
 
+    #关闭浏览器
+    def close(self):
+        self.bro.quit()
+
 def has_cookie():
     """检查当前目录是否存在 cookie.json"""
     cookie_file = Path("cookie.json")
@@ -71,8 +75,8 @@ def ensure_cookie():
         
         if cookie.test_cookie() == False:
             cookie.get_cookie()
-            cookie.store_cookie()
-            return cookie
+            cookie.store_cookie() 
+    return cookie
         
 
 if __name__ == "__main__":
