@@ -7,8 +7,6 @@ import re
 from getAccessories import open_web,accessoriesurls
 
 bro= open_web()
-user_url= accessoriesurls()[0]#注意这样为了继续写下去先爬一个的数据
-
 bro.change_mode()
 #切换模式
 
@@ -66,6 +64,3 @@ def parse_goods(page,goods_url):
     return goods
 def close():
     bro.quit() 
-if __name__ == "__main__":
-    goods_ids=into_goods(user_url)
-    goods = parse_goods(bro,goods_ids)
