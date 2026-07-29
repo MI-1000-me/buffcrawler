@@ -17,16 +17,8 @@ user_url= accessoriesurls()[0]#注意这样为了继续写下去先爬一个的�
 bro.change_mode()
 bro.get(user_url)
 
-details_ids = bro.eles('[data-goods_id]')
-for idetails_id in details_ids:
-    details_id= idetails_id.attr("data-goods_id") 
-details_title= details_ids.ele("@tag:h3")
-"""
-details = bro.eles('[data-goods_id]')
-
-for detail in details:
-    goods_id = detail.attr("data-goods_id")
-    title = detail.ele("@tag:h3").text
-    
-    print(goods_id, title)
-"""
+details_id= bro.eles("tag=a")
+for i in details_id:
+    details_url= i.attr("href")
+    details_name= i.attr("title")
+    print(details_url,details_name) 

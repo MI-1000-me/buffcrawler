@@ -1,13 +1,18 @@
 import json
 from pathlib import Path
 
+from DrissionPage import ChromiumOptions
 from DrissionPage import Chromium
 
 url="https://buff.163.com/market/csgo#game=csgo"
 
+
+co = ChromiumOptions()
+co.headless(False) # 非无头模式
+
 class CookieManager():
     def __init__(self):
-        self.bro= Chromium().latest_tab
+        self.bro= Chromium(addr_or_opts=co).latest_tab
         self.url= url
         self.cookie = None
         
@@ -31,9 +36,17 @@ class CookieManager():
         if self.bro.ele('@text()=我的库存') is None:
             print("暂未登录")
             return False
-        print("已登录")
-        return True
-    
+        else:
+            if self.bro.ele('@text()=市场接口访问功能暂时关闭') is None:
+                self.cookie= self.bro.cookies()
+                return True
+            else:
+                print("cookie已过期")
+                self.bro.set.cookies.clear() 
+                self.bro.refresh()
+                print("请重新扫码登录")
+                return False
+
     #打开cookie
     def open_cookie(self):
         with open("cookie.json","r",encoding="utf8")as cooi:
@@ -59,7 +72,7 @@ def ensure_cookie():
         if cookie.test_cookie() == False:
             cookie.get_cookie()
             cookie.store_cookie()
-    return cookie
+            return cookie
         
 
 if __name__ == "__main__":
