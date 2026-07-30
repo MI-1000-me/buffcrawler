@@ -54,6 +54,7 @@ def parse_goods(page,goods_url):
                 item = {
                     "name": tr.ele("css:.textOne").text,
                     "price": tr.ele("css:.f_Strong").text,
+                    "type": tr.ele('@@class=t_Left@!class=c_Gray@@tag:td').text,
                     "time": tr.ele("css:td.c_Gray").text
                 }
                 goods.append(item)    
