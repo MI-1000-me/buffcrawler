@@ -20,7 +20,6 @@
 
 - Python
 - DrissionPage
-- Requests
 - PyMySQL
 - MySQL
 - Regex
