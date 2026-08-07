@@ -34,9 +34,3 @@
 ## 运行环境
 
 Python 3.x
-
-安装依赖：
-
-```bash
-pip install -r requirements.txt
-```
