@@ -8,8 +8,8 @@ def open_sql(func):
         conn = pymysql.connect(
             host='localhost',       # 地址
             port=3306,              # 端口
-            user='root',            # 用户名
-            password='123456',      # 密码
+            user='   ',            # 用户名
+            password='   ',      # 密码
             database='buffcrawlerbase',# 数据库名
             charset='utf8mb4'       # 字符集
         )

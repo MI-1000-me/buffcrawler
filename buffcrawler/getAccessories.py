@@ -41,7 +41,7 @@ def search(bro):
 
 def accessoriesurls():
     accessoriesurls= []
-    _,accessories_v= search()  #大脑枯竭了，这个变量接受的是饰品类的id吧，就是下面用的那个
+    _,accessories_v= search() 
     for i in accessories_v:
         accessoriesurl= f"https://buff.163.com/market/csgo#game=csgo&page_num=1&category={i}&tab=selling"
         accessoriesurls.append(accessoriesurl)
