@@ -5,6 +5,7 @@ from pathlib import Path
 
 
 from cookie_manager import ensure_cookie
+from config import buff_url
 
 co = ChromiumOptions()
 co.headless(True)  # 无头模式
@@ -14,7 +15,7 @@ co.incognito()     # 无痕模式
 
 
 manager = ensure_cookie()  
-url= "https://buff.163.com/market/csgo#game=csgo" 
+url= buff_url
 Settings.set_language('zh_cn')
 bro= Chromium(addr_or_opts=co).latest_tab
 
@@ -26,12 +27,13 @@ def open_web():
     return bro
 
         
-def search(bro):
+def search(bro)->tuple[list, list] :
+    """     
+    检索所有大类饰品并给出名字和calue值
+    """
     names= bro.eles(".cols")
     name= [name.text.split() for name in names]
     value_list = []
-    #注意一个种类结束link.link是none
-    # value
     lis = bro.eles('css:ul.cols li')
     for li in lis:
         value = li.attr('value')
@@ -39,7 +41,8 @@ def search(bro):
     return name,value_list
 
 
-def accessoriesurls():
+def accessoriesurls()-> list:
+    #合成所有大类的url
     accessoriesurls= []
     _,accessories_v= search() 
     for i in accessories_v:
