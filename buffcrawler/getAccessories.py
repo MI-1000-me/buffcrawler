@@ -1,3 +1,5 @@
+import logging
+
 from DrissionPage import Chromium
 from DrissionPage import ChromiumOptions
 from DrissionPage.common import Settings
@@ -5,7 +7,8 @@ from pathlib import Path
 
 
 from cookie_manager import ensure_cookie
-from config import buff_url
+from config import buff_url,log_config
+logging_config= log_config
 
 co = ChromiumOptions()
 co.headless(True)  # 无头模式
@@ -29,7 +32,7 @@ def open_web():
         
 def search(bro)->tuple[list, list] :
     """     
-    检索所有大类饰品并给出名字和calue值
+    检索所有大类饰品并给出名字和value值
     """
     names= bro.eles(".cols")
     name= [name.text.split() for name in names]
@@ -38,6 +41,7 @@ def search(bro)->tuple[list, list] :
     for li in lis:
         value = li.attr('value')
         value_list.append(value)
+        logging.info(f"已获取{name}等的value")
     return name,value_list
 
 
@@ -48,6 +52,7 @@ def accessoriesurls()-> list:
     for i in accessories_v:
         accessoriesurl= f"https://buff.163.com/market/csgo#game=csgo&page_num=1&category={i}&tab=selling"
         accessoriesurls.append(accessoriesurl)
+        logging.info("以获取具体饰品类的网址")
     return accessoriesurls
 def close():
     bro.quit()    

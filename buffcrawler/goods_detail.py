@@ -1,6 +1,9 @@
-
+import time
+import logging
 import re
 from getAccessories import open_web,accessoriesurls
+from config import buff_url,log_config
+logging_config= log_config
 
 bro= open_web()
 bro.change_mode()
@@ -8,8 +11,10 @@ bro.change_mode()
 
 
 
-def into_goods(url):
-    
+def into_goods(url:str)->list:
+    """
+    在此处拿到id未来都在这里开始搜索
+    """
     goods_url= []
     bro.get(url)
     details_id= bro.eles("tag=a")
@@ -21,17 +26,19 @@ def into_goods(url):
         if goods_id:
             
             goods_url.append(goods_id.group(1))
-
+        time.sleep(60)
+        
     return goods_url
     
     
-def parse_goods(page,goods_url):
+def parse_goods(page,goods_url:list)->list:
     goods = []
     
     for i in goods_url:
         
         good_url= f"https://buff.163.com/goods/{i}"    
         page.get(good_url)
+        time.sleep(15)
         
         btn= page.ele("@text():成交记录")
         if btn:
@@ -56,7 +63,7 @@ def parse_goods(page,goods_url):
                 goods.append(item)    
                 
             except AttributeError as A:
-                print(f"饰品 {i} 的某一行数据缺失，跳过该行。错误信息: {A}")
+                logging.error(f"饰品 {i} 的某一行数据缺失，跳过该行。错误信息: {A}")
             
     return goods
 def close():

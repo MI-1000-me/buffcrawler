@@ -1,4 +1,6 @@
 import re
+import time
+import logging
 
 from getAccessories import open_web,accessoriesurls,search
 from goods_detail import into_goods,parse_goods
@@ -29,10 +31,11 @@ def user_url(bro):
             )
             
             try:
+                time.sleep(15)
                 goods_ids = into_goods(url)
 
             except Exception as e:
-                print(f"{name} 第{page}页失败:", e)
+                logging.error(f"{name} 第{page}页失败:")
                 continue
 
             if not goods_ids:

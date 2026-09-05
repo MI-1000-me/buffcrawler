@@ -5,19 +5,12 @@ from pathlib import Path
 from DrissionPage import ChromiumOptions
 from DrissionPage import Chromium
 
-from config import buff_url
-
-logging.basicConfig(
-                    level=logging.INFO,
-                    format="%(levelname)s - %(asctime)s - %(funcName)s - %(message)s",
-                     datefmt="%Y-%m-%d %H:%M:%S",
-                     filename="cookies.log",
-                     filemode="a",
-                     encoding= "utf-8",
-                     )
+from config import buff_url,log_config
+logging_config= log_config
 
 co = ChromiumOptions()
 co.headless(False) # 非无头模式
+
 
 class BuffCookieManager():
     def __init__(self):
